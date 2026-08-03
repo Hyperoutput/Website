@@ -103,6 +103,22 @@
       object-fit: contain;
     }
 
+    .logo-img-dark {
+      display: none;
+      height: 38px;
+      width: auto;
+      max-width: 210px;
+      object-fit: contain;
+    }
+
+    html[data-theme="dark"] .logo-img {
+      display: none;
+    }
+
+    html[data-theme="dark"] .logo-img-dark {
+      display: block;
+    }
+
     .logo-fallback {
       display: none;
     }
@@ -911,6 +927,11 @@
         max-width: 160px;
       }
 
+      .logo-img-dark {
+        height: 30px;
+        max-width: 160px;
+      }
+
       .brand-name {
         font-size: 20px;
       }
@@ -988,6 +1009,11 @@
           src="assets/images/hyperoutput-logo.png"
           alt="HyperOutput"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+        />
+        <img
+          class="logo-img-dark"
+          src="assets/images/hyperoutput-logo-dark.png"
+          alt="HyperOutput"
         />
         <span class="brand-name logo-fallback">HyperOutput</span>
       </a>
