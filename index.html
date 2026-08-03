@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HyperOutput — Multiplica el output. No la plantilla.</title>
+  <meta name="description" content="HyperOutput ayuda a empresas a optimizar procesos con IA, implementar sistemas prácticos y multiplicar output sin multiplicar plantilla." />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+
+  <style>
+    :root {
+      --brand: #7a6200;
+      --brand-dark: #4e3f00;
+      --brand-soft: #d8c99a;
+      --bg: #f5f1e8;
+      --bg-light: #fffaf0;
+      --ink: #1c1a16;
+      --muted: #6f675c;
+      --line: rgba(28, 26, 22, 0.14);
+      --white: #ffffff;
+      --black: #000000;
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.25;
+      background-image: radial-gradient(rgba(28, 26, 22, 0.08) 0.7px, transparent 0.7px);
+      background-size: 14px 14px;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 241, 232, 0.9);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 210px;
+    }
+
+    .logo-img {
+      display: block;
+      height: 38px;
+      width: auto;
+      max-width: 210px;
+      object-fit: contain;
+    }
+
+    .logo-fallback {
+      display: none;
+    }
+
+    .brand-name {
+      font-size: 24px;
+      font-weight: 640;
+      letter-spacing: -0.055em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .language-toggle {
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 240, 0.7);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 180ms ease;
+    }
+
+    .language-toggle:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-size: 14px;
+      font-weight: 560;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: 180ms ease;
+      white-space: nowrap;
+    }
+
+    .button-primary {
+      background: var(--ink);
+      color: var(--bg-light);
+    }
+
+    .button-primary:hover {
+      background: var(--brand);
+      transform: translateY(-1px);
+    }
+
+    .button-secondary {
+      color: var(--ink);
+      border-color: var(--line);
+      background: rgba(255, 250, 240, 0.56);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      min-height: calc(100vh - 82px);
+      padding: clamp(34px, 5.2vh, 58px) 0 clamp(28px, 4.8vh, 50px);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr);
+      gap: 70px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 660;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    h1, h2, h3 {
+      font-weight: 580;
+      letter-spacing: -0.065em;
+      line-height: 0.96;
+      overflow-wrap: anywhere;
+    }
+
+    h1 {
+      font-size: clamp(56px, 8.6vw, 112px);
+      max-width: 900px;
+    }
+
+    h2 {
+      font-size: clamp(42px, 6vw, 78px);
+      max-width: 880px;
+    }
+
+    h3 {
+      font-size: clamp(24px, 2.4vw, 36px);
+    }
+
+    .hero-copy {
+      max-width: 660px;
+      margin-top: 24px;
+      font-size: clamp(19px, 2vw, 26px);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+    }
+
+    .hero-subcopy {
+      max-width: 590px;
+      margin-top: 18px;
+      font-size: 17px;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+      max-width: 100%;
+    }
+
+    .hero-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      background: rgba(255, 250, 240, 0.65);
+      min-height: clamp(340px, 54vh, 430px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 10%, rgba(122, 98, 0, 0.18), transparent 34%),
+                  linear-gradient(135deg, rgba(255,255,255,0.62), transparent 45%);
+      pointer-events: none;
+    }
+
+    .hero-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .placeholder-box {
+      min-height: clamp(210px, 34vh, 300px);
+      border: 1px dashed rgba(122, 98, 0, 0.35);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--brand);
+      background: rgba(245, 241, 232, 0.7);
+      padding: 28px;
+      font-size: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .asset-image {
+      width: 100%;
+      height: 100%;
+      min-height: clamp(210px, 34vh, 300px);
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .hero-metric {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .metric {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -0.06em;
+      font-weight: 560;
+      color: var(--brand);
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    section {
+      padding: 92px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 70px;
+      align-items: start;
+    }
+
+    .section-kicker {
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 660;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .lead {
+      font-size: clamp(24px, 3vw, 42px);
+      line-height: 1.12;
+      letter-spacing: -0.055em;
+    }
+
+    .body-large {
+      font-size: 19px;
+      color: var(--muted);
+      max-width: 680px;
+    }
+
+    .body-large + .body-large {
+      margin-top: 20px;
+    }
+
+    .three-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 44px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 250, 240, 0.58);
+      padding: 26px;
+    }
+
+    .card-number {
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 34px;
+    }
+
+    .card h3 {
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      margin-top: 46px;
+    }
+
+    .usecase {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 250, 240, 0.62);
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 0.68fr 1.32fr;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    .usecase-intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .usecase h3 {
+      margin-bottom: 18px;
+    }
+
+    .usecase p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 540px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .impact-kicker {
+      color: var(--brand);
+      font-size: 12px;
+      font-weight: 720;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .impact-card {
+      border: 1px solid rgba(122, 98, 0, 0.18);
+      border-radius: 16px;
+      background: rgba(122, 98, 0, 0.06);
+      padding: 14px 16px;
+    }
+
+    .impact-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .impact-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      font-weight: 590;
+    }
+
+    .impact-note {
+      color: var(--muted);
+      font-size: 12px !important;
+      margin-top: 10px;
+      max-width: 360px;
+    }
+
+    .flow-visual {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .flow-step {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(245, 241, 232, 0.7);
+      min-height: 260px;
+    }
+
+    .flow-step.highlight {
+      border-color: rgba(122, 98, 0, 0.38);
+      background: rgba(122, 98, 0, 0.08);
+    }
+
+    .flow-step small {
+      display: block;
+      color: var(--brand);
+      font-weight: 720;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+
+    .flow-step ul {
+      list-style: none;
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .usecase-claim {
+      grid-column: 1 / -1;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--ink) !important;
+      font-size: 18px !important;
+      letter-spacing: -0.03em;
+      max-width: none !important;
+    }
+
+    .method-list {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+      margin-top: 44px;
+    }
+
+    .method-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 28px;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .method-item span {
+      color: var(--brand);
+      font-weight: 660;
+      font-size: 14px;
+    }
+
+    .method-item h3 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .method-item p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 44px;
+    }
+
+    .capability {
+      min-height: 190px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      background: rgba(255, 250, 240, 0.55);
+    }
+
+    .capability h3 {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .capability p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      margin-top: 44px;
+    }
+
+    .quote-panel {
+      margin-top: 52px;
+      border-radius: var(--radius-lg);
+      padding: 46px;
+      background: var(--ink);
+      color: var(--bg-light);
+    }
+
+    .quote-panel p {
+      font-size: clamp(28px, 5vw, 66px);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      max-width: 980px;
+    }
+
+    .quote-panel span {
+      display: block;
+      margin-top: 26px;
+      color: rgba(255, 250, 240, 0.68);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+      align-items: stretch;
+    }
+
+    .team-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 250, 240, 0.62);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: rgba(122, 98, 0, 0.08);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .team-photo .asset-image {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center 24%;
+      border-radius: 0;
+      background: #f2eee5;
+    }
+
+    .team-photo .asset-image.portrait-vicente {
+      object-position: center 18%;
+    }
+
+    .team-photo .asset-image.portrait-founder {
+      object-position: center 18%;
+    }
+
+    .team-content {
+      padding: 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-content h3 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .role {
+      color: var(--brand);
+      font-size: 14px;
+      font-weight: 650;
+      margin-bottom: 20px;
+    }
+
+    .team-content p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .team-content p + p {
+      margin-top: 14px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 24px;
+    }
+
+    .profile-stat {
+      border: 1px solid rgba(122, 98, 0, 0.18);
+      border-radius: 16px;
+      background: rgba(122, 98, 0, 0.06);
+      padding: 14px;
+    }
+
+    .profile-stat strong {
+      display: block;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      font-weight: 590;
+    }
+
+    .profile-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+      line-height: 1.25;
+    }
+
+    .cta-section {
+      padding: 96px 0;
+    }
+
+    .cta-box {
+      background: var(--brand);
+      color: var(--bg-light);
+      border-radius: var(--radius-lg);
+      padding: clamp(34px, 6vw, 72px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: end;
+    }
+
+    .cta-box h2 {
+      color: var(--bg-light);
+      max-width: 760px;
+    }
+
+    .cta-box p {
+      color: rgba(255, 250, 240, 0.82);
+      font-size: 18px;
+      margin-top: 24px;
+      max-width: 540px;
+    }
+
+    .cta-box .button-primary {
+      background: var(--bg-light);
+      color: var(--brand-dark);
+    }
+
+    .cta-box .button-primary:hover {
+      background: var(--ink);
+      color: var(--bg-light);
+    }
+
+    .contact-panel {
+      border: 1px solid rgba(255, 250, 240, 0.24);
+      border-radius: 22px;
+      padding: 24px;
+      background: rgba(255, 250, 240, 0.08);
+    }
+
+    .contact-panel p {
+      margin-top: 0;
+      font-size: 15px;
+      color: rgba(255, 250, 240, 0.82);
+    }
+
+    .contact-email {
+      display: inline-flex;
+      margin-top: 18px;
+      font-size: 18px;
+      color: var(--bg-light);
+      border-bottom: 1px solid rgba(255, 250, 240, 0.55);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 34px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .mobile-menu-button {
+      display: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      border-radius: 999px;
+      padding: 10px 13px;
+      color: var(--ink);
+    }
+
+    @media (max-width: 940px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: inline-flex;
+      }
+
+      .nav-links.open {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 82px;
+        display: grid;
+        gap: 8px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--bg-light);
+      }
+
+      .nav-links.open a {
+        padding: 10px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 54px 0 52px;
+      }
+
+      .hero-grid,
+      .split,
+      .team-grid,
+      .cta-box,
+      .usecase {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: auto;
+      }
+
+      .three-cards,
+      .usecase-grid,
+      .capabilities-grid,
+      .why-grid,
+      .flow-visual {
+        grid-template-columns: 1fr;
+      }
+
+      .method-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .nav-inner {
+        min-height: 74px;
+        gap: 10px;
+      }
+
+      .brand-link {
+        min-width: 0;
+      }
+
+      .logo-img {
+        height: 30px;
+        max-width: 160px;
+      }
+
+      .brand-name {
+        font-size: 20px;
+      }
+
+      .button {
+        padding: 11px 14px;
+        white-space: normal;
+      }
+
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .nav-actions .button-primary {
+        display: none;
+      }
+
+      .hero {
+        padding: 44px 0 46px;
+      }
+
+      section {
+        padding: 68px 0;
+      }
+
+      .hero-metric {
+        grid-template-columns: 1fr;
+      }
+
+      .usecase {
+        min-height: unset;
+        padding: 22px;
+      }
+
+      .quote-panel,
+      .cta-box {
+        padding: 28px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a class="brand-link" href="#top" aria-label="HyperOutput home">
+        <img 
+          class="logo-img" 
+          src="assets/images/hyperoutput-logo.png" 
+          alt="HyperOutput"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+        />
+        <span class="brand-name logo-fallback">HyperOutput</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#method" data-i18n="nav.method">Method</a>
+        <a href="#use-cases" data-i18n="nav.useCases">Use Cases</a>
+        <a href="#team" data-i18n="nav.team">Team</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="language-toggle" id="languageToggle" type="button" aria-label="Change language">ES</button>
+        <a class="button button-primary" href="#contact" data-i18n="nav.cta">Start with one workflow</a>
+        <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Open menu">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow" data-i18n="hero.eyebrow">AI implementation for real work</p>
+          <h1 data-i18n="hero.title">Multiply output. Not headcount.</h1>
+          <p class="hero-copy" data-i18n="hero.copy">We help companies use AI to make their teams faster, sharper and more productive.</p>
+          <p class="hero-subcopy" data-i18n="hero.subcopy">Not with generic tools. Not with endless pilots. With practical systems built around the way your company actually works.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact" data-i18n="hero.primaryCta">Start with one workflow</a>
+            <a class="button button-secondary" href="#use-cases" data-i18n="hero.secondaryCta">See how it works</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Output visual placeholder">
+          <div>
+            <div class="placeholder-box">
+              <img class="asset-image" src="assets/images/hero-output.jpg" alt="HyperOutput workflow visual" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <span data-i18n="placeholders.hero" style="display: none;">Image placeholder<br />Suggested: abstract workflow, team at work, or premium brand visual<br />assets/images/hero-output.jpg</span>
+            </div>
+          </div>
+          <div class="hero-metric">
+            <div class="metric">
+              <strong data-i18n="hero.metricOneValue">Less</strong>
+              <span data-i18n="hero.metricOne">manual friction</span>
+            </div>
+            <div class="metric">
+              <strong data-i18n="hero.metricTwoValue">More</strong>
+              <span data-i18n="hero.metricTwo">business output</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container split">
+        <div>
+          <p class="section-kicker" data-i18n="position.kicker">Positioning</p>
+          <p class="lead" data-i18n="position.lead">AI is easy to access. Hard to implement well.</p>
+        </div>
+        <div>
+          <p class="body-large" data-i18n="position.p1">The value is not in having AI. The value is knowing where it fits, how work really happens, and how to make people use it every day.</p>
+          <p class="body-large" data-i18n="position.p2">HyperOutput turns AI into operating leverage: practical systems that remove friction from daily work and help teams produce more with the same resources.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-kicker" data-i18n="what.kicker">What we do</p>
+        <h2 data-i18n="what.title">We turn AI into operating leverage.</h2>
+        <div class="three-cards">
+          <article class="card">
+            <div class="card-number">01</div>
+            <h3 data-i18n="what.card1Title">Understand the work</h3>
+            <p data-i18n="what.card1Text">We study how your team actually works before proposing any solution.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">02</div>
+            <h3 data-i18n="what.card2Title">Build the system</h3>
+            <p data-i18n="what.card2Text">We design simple AI workflows around your processes, tools and constraints.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">03</div>
+            <h3 data-i18n="what.card3Title">Make it stick</h3>
+            <p data-i18n="what.card3Text">We help your team adopt it, improve it and measure the output gained.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="use-cases">
+      <div class="container">
+        <p class="section-kicker" data-i18n="useCases.kicker">Use cases</p>
+        <h2 data-i18n="useCases.title">Where the value becomes visible.</h2>
+        <div class="usecase-grid">
+          <article class="usecase">
+            <div class="usecase-intro">
+              <div>
+                <h3 data-i18n="useCases.reportingTitle">From manual reporting to assisted intelligence.</h3>
+                <p data-i18n="useCases.reportingText">Many teams spend hours collecting data, cleaning information and preparing the same reports every week. We build AI-assisted reporting workflows that help teams move from manual preparation to faster analysis, clearer summaries and better decisions.</p>
+              </div>
+              <div>
+                <div class="impact-kicker" data-i18n="useCases.impactKicker">Indicative impact</div>
+                <div class="impact-grid">
+                  <div class="impact-card">
+                    <span data-i18n="useCases.reportingMetric1Label">Time saved</span>
+                    <strong data-i18n="useCases.reportingMetric1Value">18 h / month</strong>
+                  </div>
+                  <div class="impact-card">
+                    <span data-i18n="useCases.reportingMetric2Label">Estimated value</span>
+                    <strong data-i18n="useCases.reportingMetric2Value">€810 / month</strong>
+                  </div>
+                  <div class="impact-card">
+                    <span data-i18n="useCases.reportingMetric3Label">Based on</span>
+                    <strong data-i18n="useCases.reportingMetric3Value">6 h → 1.5 h / week</strong>
+                  </div>
+                </div>
+                <p class="impact-note" data-i18n="useCases.impactNote">Example only. We validate the real numbers with your data.</p>
+              </div>
+            </div>
+            <div class="flow-visual" aria-label="Reporting visual flow">
+              <div class="flow-step">
+                <small data-i18n="useCases.before">Before</small>
+                <ul>
+                  <li data-i18n="useCases.reportingBefore1">Data scattered</li>
+                  <li data-i18n="useCases.reportingBefore2">Manual copy-paste</li>
+                  <li data-i18n="useCases.reportingBefore3">Slow report creation</li>
+                  <li data-i18n="useCases.reportingBefore4">Little time for analysis</li>
+                </ul>
+              </div>
+              <div class="flow-step highlight">
+                <small>HyperOutput</small>
+                <ul>
+                  <li data-i18n="useCases.reportingSystem1">Connect sources</li>
+                  <li data-i18n="useCases.reportingSystem2">Structure information</li>
+                  <li data-i18n="useCases.reportingSystem3">Generate summaries</li>
+                  <li data-i18n="useCases.reportingSystem4">Highlight anomalies</li>
+                </ul>
+              </div>
+              <div class="flow-step">
+                <small data-i18n="useCases.after">After</small>
+                <ul>
+                  <li data-i18n="useCases.reportingAfter1">Faster reporting</li>
+                  <li data-i18n="useCases.reportingAfter2">Better decisions</li>
+                  <li data-i18n="useCases.reportingAfter3">More time for real work</li>
+                </ul>
+              </div>
+            </div>
+            <p class="usecase-claim" data-i18n="useCases.reportingClaim">Less time preparing reports. More time using them.</p>
+          </article>
+
+          <article class="usecase">
+            <div class="usecase-intro">
+              <div>
+                <h3 data-i18n="useCases.knowledgeTitle">From lost knowledge to instant answers.</h3>
+                <p data-i18n="useCases.knowledgeText">In many companies, the answer already exists. It is just hidden in documents, emails, folders, chats or someone’s head. We create internal AI knowledge systems that help teams find the right answer faster, with context and traceability.</p>
+              </div>
+              <div>
+                <div class="impact-kicker" data-i18n="useCases.impactKicker">Indicative impact</div>
+                <div class="impact-grid">
+                  <div class="impact-card">
+                    <span data-i18n="useCases.knowledgeMetric1Label">Time saved</span>
+                    <strong data-i18n="useCases.knowledgeMetric1Value">32 h / month</strong>
+                  </div>
+                  <div class="impact-card">
+                    <span data-i18n="useCases.knowledgeMetric2Label">Estimated value</span>
+                    <strong data-i18n="useCases.knowledgeMetric2Value">€1,440 / month</strong>
+                  </div>
+                  <div class="impact-card">
+                    <span data-i18n="useCases.knowledgeMetric3Label">Based on</span>
+                    <strong data-i18n="useCases.knowledgeMetric3Value">12 h → 4 h / week</strong>
+                  </div>
+                </div>
+                <p class="impact-note" data-i18n="useCases.impactNote">Example only. We validate the real numbers with your data.</p>
+              </div>
+            </div>
+            <div class="flow-visual" aria-label="Knowledge visual flow">
+              <div class="flow-step">
+                <small data-i18n="useCases.before">Before</small>
+                <ul>
+                  <li data-i18n="useCases.knowledgeBefore1">Documents everywhere</li>
+                  <li data-i18n="useCases.knowledgeBefore2">Repeated questions</li>
+                  <li data-i18n="useCases.knowledgeBefore3">People interrupting people</li>
+                  <li data-i18n="useCases.knowledgeBefore4">Slow onboarding</li>
+                </ul>
+              </div>
+              <div class="flow-step highlight">
+                <small>HyperOutput</small>
+                <ul>
+                  <li data-i18n="useCases.knowledgeSystem1">Map knowledge</li>
+                  <li data-i18n="useCases.knowledgeSystem2">Structure sources</li>
+                  <li data-i18n="useCases.knowledgeSystem3">Create AI assistant</li>
+                  <li data-i18n="useCases.knowledgeSystem4">Connect to workflows</li>
+                </ul>
+              </div>
+              <div class="flow-step">
+                <small data-i18n="useCases.after">After</small>
+                <ul>
+                  <li data-i18n="useCases.knowledgeAfter1">Instant answers</li>
+                  <li data-i18n="useCases.knowledgeAfter2">Less interruption</li>
+                  <li data-i18n="useCases.knowledgeAfter3">Faster onboarding</li>
+                  <li data-i18n="useCases.knowledgeAfter4">Reusable knowledge</li>
+                </ul>
+              </div>
+            </div>
+            <p class="usecase-claim" data-i18n="useCases.knowledgeClaim">Your company already knows more than it uses.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="container">
+        <p class="section-kicker" data-i18n="method.kicker">Our method</p>
+        <h2 data-i18n="method.title">Reality first. AI second.</h2>
+        <div class="method-list">
+          <article class="method-item">
+            <span data-i18n="method.step1Number">01 — Map</span>
+            <div>
+              <h3 data-i18n="method.step1Title">Understand the real workflow</h3>
+              <p data-i18n="method.step1Text">We look at who does what, where time is lost, which tools are used, and what cannot break.</p>
+            </div>
+          </article>
+          <article class="method-item">
+            <span data-i18n="method.step2Number">02 — Find leverage</span>
+            <div>
+              <h3 data-i18n="method.step2Title">Find where AI creates output</h3>
+              <p data-i18n="method.step2Text">We identify the points where AI can reduce manual work, speed up decisions, improve quality or remove interruptions.</p>
+            </div>
+          </article>
+          <article class="method-item">
+            <span data-i18n="method.step3Number">03 — Build</span>
+            <div>
+              <h3 data-i18n="method.step3Title">Create practical systems</h3>
+              <p data-i18n="method.step3Text">We build assistants, automations, document workflows, reporting tools or decision-support processes.</p>
+            </div>
+          </article>
+          <article class="method-item">
+            <span data-i18n="method.step4Number">04 — Implement</span>
+            <div>
+              <h3 data-i18n="method.step4Title">Deploy with the team</h3>
+              <p data-i18n="method.step4Text">We adjust the system to reality, help the team adopt it and measure the output gained.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-kicker" data-i18n="capabilities.kicker">What we build</p>
+        <h2 data-i18n="capabilities.title">AI systems for the work that slows teams down.</h2>
+        <div class="capabilities-grid">
+          <article class="capability">
+            <h3 data-i18n="capabilities.c1Title">Workflow automation</h3>
+            <p data-i18n="capabilities.c1Text">Reduce repetitive manual tasks across admin, operations, sales or finance.</p>
+          </article>
+          <article class="capability">
+            <h3 data-i18n="capabilities.c2Title">AI reporting</h3>
+            <p data-i18n="capabilities.c2Text">Turn scattered data into faster reports, summaries and decision-ready insights.</p>
+          </article>
+          <article class="capability">
+            <h3 data-i18n="capabilities.c3Title">Knowledge assistants</h3>
+            <p data-i18n="capabilities.c3Text">Help teams find answers across documents, policies, procedures and internal knowledge.</p>
+          </article>
+          <article class="capability">
+            <h3 data-i18n="capabilities.c4Title">Document workflows</h3>
+            <p data-i18n="capabilities.c4Text">Draft, review, classify or extract information from documents with less manual effort.</p>
+          </article>
+          <article class="capability">
+            <h3 data-i18n="capabilities.c5Title">Sales operations</h3>
+            <p data-i18n="capabilities.c5Text">Support proposal creation, follow-ups, account research and CRM updates.</p>
+          </article>
+          <article class="capability">
+            <h3 data-i18n="capabilities.c6Title">Process redesign</h3>
+            <p data-i18n="capabilities.c6Text">Redesign work around AI instead of simply adding tools on top of old processes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-kicker" data-i18n="why.kicker">Why HyperOutput</p>
+        <h2 data-i18n="why.title">Most companies do not need more AI noise. They need more output.</h2>
+        <div class="why-grid">
+          <article class="card">
+            <h3 data-i18n="why.card1Title">Built around your company</h3>
+            <p data-i18n="why.card1Text">We do not start from templates. We start from your real workflows.</p>
+          </article>
+          <article class="card">
+            <h3 data-i18n="why.card2Title">Focused on implementation</h3>
+            <p data-i18n="why.card2Text">A good idea is not enough. The system has to work in daily operations.</p>
+          </article>
+          <article class="card">
+            <h3 data-i18n="why.card3Title">Measured by output</h3>
+            <p data-i18n="why.card3Text">We care about time saved, work accelerated, quality improved and capacity increased.</p>
+          </article>
+        </div>
+        <div class="quote-panel">
+          <p data-i18n="why.quote">The human engine stays. We just make it produce more.</p>
+          <span data-i18n="why.quoteSub">AI as leverage, not as theatre.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="container">
+        <p class="section-kicker" data-i18n="team.kicker">Team</p>
+        <h2 data-i18n="team.title">Business experience. AI implementation mindset.</h2>
+
+        <div class="split" style="margin-top: 34px;">
+          <div></div>
+          <div>
+            <p class="body-large" data-i18n="team.intro1">HyperOutput combines business process experience with practical AI implementation.</p>
+            <p class="body-large" data-i18n="team.intro2">Companies are not blank pages. They have people, habits, tools, constraints, politics, legacy systems and ways of working that matter. That is why we start with reality.</p>
+          </div>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-card">
+            <div class="team-photo">
+              <img class="asset-image portrait-vicente" src="assets/images/vicente-centelles.jpg" alt="Vicente Centelles Forner" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <span data-i18n="placeholders.partnerPhoto" style="display: none;">Partner photo placeholder<br />assets/images/vicente-centelles.jpg</span>
+            </div>
+            <div class="team-content">
+              <h3>Vicente Centelles Forner</h3>
+              <p class="role" data-i18n="team.partnerRole">Business leadership, process optimisation and measurable implementation</p>
+              <p data-i18n="team.partnerText1">Vicente brings more than 40 years of technical and business experience, including general management, board-level work, business consulting and technology projects.</p>
+              <p data-i18n="team.partnerText2">His value is especially relevant to HyperOutput: he understands how companies really operate, why processes must be understood before they are optimised, and why every solution must be measured against real business impact.</p>
+              <div class="profile-stats" aria-label="Vicente Centelles profile highlights">
+                <div class="profile-stat">
+                  <strong data-i18n="team.partnerStat1Value">40+ years</strong>
+                  <span data-i18n="team.partnerStat1Label">technical and business career</span>
+                </div>
+                <div class="profile-stat">
+                  <strong data-i18n="team.partnerStat2Value">Since 2008</strong>
+                  <span data-i18n="team.partnerStat2Label">partner in business competitiveness consulting</span>
+                </div>
+                <div class="profile-stat">
+                  <strong data-i18n="team.partnerStat3Value">Boards</strong>
+                  <span data-i18n="team.partnerStat3Label">general management and board-level experience</span>
+                </div>
+                <div class="profile-stat">
+                  <strong data-i18n="team.partnerStat4Value">HR + ICT</strong>
+                  <span data-i18n="team.partnerStat4Label">people, technology and real operations</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="team-card">
+            <div class="team-photo">
+              <img class="asset-image portrait-founder" src="assets/images/amando-estela-hyperoutput.jpg" alt="Amando Estela Pastor" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <span data-i18n="placeholders.founderPhoto" style="display: none;">Founder photo placeholder<br />assets/images/amando-estela-hyperoutput.jpg</span>
+            </div>
+            <div class="team-content">
+              <h3 data-i18n="team.founderName">Amando Estela Pastor</h3>
+              <p class="role" data-i18n="team.founderRole">AI, language technology, enterprise deployments and revenue strategy</p>
+              <p data-i18n="team.founderText1">Amando is Chief Revenue Officer and former Chief Technology Officer of Pangeanic. His career combines deep technical expertise in natural language processing, neural networks and AI with hands-on experience managing strategic partnerships, enterprise accounts and advanced product deployments.</p>
+              <p data-i18n="team.founderText2">With a background spanning astrophysics computing, data science, software engineering, network security and AI, he bridges the technical and commercial sides of enterprise technology: turning complex AI capabilities into real business value.</p>
+              <div class="profile-stats" aria-label="Amando Estela profile highlights">
+                <div class="profile-stat">
+                  <strong data-i18n="team.founderStat1Value">NLP + AI</strong>
+                  <span data-i18n="team.founderStat1Label">neural networks applied to language</span>
+                </div>
+                <div class="profile-stat">
+                  <strong data-i18n="team.founderStat2Value">Pangeanic</strong>
+                  <span data-i18n="team.founderStat2Label">CRO and former CTO</span>
+                </div>
+                <div class="profile-stat">
+                  <strong data-i18n="team.founderStat3Value">IBM Research</strong>
+                  <span data-i18n="team.founderStat3Label">software architecture background</span>
+                </div>
+                <div class="profile-stat">
+                  <strong data-i18n="team.founderStat4Value">CCNP</strong>
+                  <span data-i18n="team.founderStat4Label">network and systems expertise</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <p class="section-kicker" style="color: rgba(255,250,240,0.76);" data-i18n="cta.kicker">Start simple</p>
+            <h2 data-i18n="cta.title">Bring us one workflow that is slowing your team down.</h2>
+            <p data-i18n="cta.text">We will help you understand where AI can create leverage, what should be built, and how to implement it without disrupting the team.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="mailto:vicente.centelles@hyperoutput.eu?subject=One workflow to improve" data-i18n="cta.button">Contact HyperOutput</a>
+            </div>
+          </div>
+          <div class="contact-panel">
+            <p data-i18n="contact.text">Want to multiply output without multiplying headcount? Tell us what your team is spending too much time on.</p>
+            <a class="contact-email" href="mailto:vicente.centelles@hyperoutput.eu">vicente.centelles@hyperoutput.eu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> HyperOutput. <span data-i18n="footer.claim">AI systems for high-output teams.</span></p>
+      <div class="footer-links">
+        <a href="#method" data-i18n="nav.method">Method</a>
+        <a href="#use-cases" data-i18n="nav.useCases">Use Cases</a>
+        <a href="#team" data-i18n="nav.team">Team</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        "nav.method": "Method",
+        "nav.useCases": "Use Cases",
+        "nav.team": "Team",
+        "nav.contact": "Contact",
+        "nav.cta": "Start with one workflow",
+
+        "hero.eyebrow": "AI implementation for real work",
+        "hero.title": "Multiply output. Not headcount.",
+        "hero.copy": "We help companies use AI to make their teams faster, sharper and more productive.",
+        "hero.subcopy": "Not with generic tools. Not with endless pilots. With practical systems built around the way your company actually works.",
+        "hero.primaryCta": "Start with one workflow",
+        "hero.secondaryCta": "See how it works",
+        "hero.metricOneValue": "Less",
+        "hero.metricOne": "manual friction",
+        "hero.metricTwoValue": "More",
+        "hero.metricTwo": "business output",
+
+        "placeholders.hero": "Image placeholder<br />Suggested: abstract workflow, team at work, or premium brand visual<br />assets/images/hero-output.jpg",
+        "placeholders.partnerPhoto": "Partner photo placeholder<br />assets/images/vicente-centelles.jpg",
+        "placeholders.founderPhoto": "Founder photo placeholder<br />assets/images/amando-estela-hyperoutput.jpg",
+
+        "position.kicker": "Positioning",
+        "position.lead": "AI is easy to access. Hard to implement well.",
+        "position.p1": "The value is not in having AI. The value is knowing where it fits, how work really happens, and how to make people use it every day.",
+        "position.p2": "HyperOutput turns AI into operating leverage: practical systems that remove friction from daily work and help teams produce more with the same resources.",
+
+        "what.kicker": "What we do",
+        "what.title": "We turn AI into operating leverage.",
+        "what.card1Title": "Understand the work",
+        "what.card1Text": "We study how your team actually works before proposing any solution.",
+        "what.card2Title": "Build the system",
+        "what.card2Text": "We design simple AI workflows around your processes, tools and constraints.",
+        "what.card3Title": "Make it stick",
+        "what.card3Text": "We help your team adopt it, improve it and measure the output gained.",
+
+        "useCases.kicker": "Use cases",
+        "useCases.title": "Where the value becomes visible.",
+        "useCases.reportingTitle": "From manual reporting to assisted intelligence.",
+        "useCases.reportingText": "Many teams spend hours collecting data, cleaning information and preparing the same reports every week. We build AI-assisted reporting workflows that help teams move from manual preparation to faster analysis, clearer summaries and better decisions.",
+        "useCases.before": "Before",
+        "useCases.after": "After",
+        "useCases.reportingBefore1": "Data scattered",
+        "useCases.reportingBefore2": "Manual copy-paste",
+        "useCases.reportingBefore3": "Slow report creation",
+        "useCases.reportingBefore4": "Little time for analysis",
+        "useCases.reportingSystem1": "Connect sources",
+        "useCases.reportingSystem2": "Structure information",
+        "useCases.reportingSystem3": "Generate summaries",
+        "useCases.reportingSystem4": "Highlight anomalies",
+        "useCases.reportingAfter1": "Faster reporting",
+        "useCases.reportingAfter2": "Better decisions",
+        "useCases.reportingAfter3": "More time for real work",
+        "useCases.reportingClaim": "Less time preparing reports. More time using them.",
+        "useCases.impactKicker": "Indicative impact",
+        "useCases.impactNote": "Example only. We validate the real numbers with your data.",
+        "useCases.reportingMetric1Label": "Time saved",
+        "useCases.reportingMetric1Value": "18 h / month",
+        "useCases.reportingMetric2Label": "Estimated value",
+        "useCases.reportingMetric2Value": "€810 / month",
+        "useCases.reportingMetric3Label": "Based on",
+        "useCases.reportingMetric3Value": "6 h → 1.5 h / week",
+
+        "useCases.knowledgeTitle": "From lost knowledge to instant answers.",
+        "useCases.knowledgeText": "In many companies, the answer already exists. It is just hidden in documents, emails, folders, chats or someone’s head. We create internal AI knowledge systems that help teams find the right answer faster, with context and traceability.",
+        "useCases.knowledgeBefore1": "Documents everywhere",
+        "useCases.knowledgeBefore2": "Repeated questions",
+        "useCases.knowledgeBefore3": "People interrupting people",
+        "useCases.knowledgeBefore4": "Slow onboarding",
+        "useCases.knowledgeSystem1": "Map knowledge",
+        "useCases.knowledgeSystem2": "Structure sources",
+        "useCases.knowledgeSystem3": "Create AI assistant",
+        "useCases.knowledgeSystem4": "Connect to workflows",
+        "useCases.knowledgeAfter1": "Instant answers",
+        "useCases.knowledgeAfter2": "Less interruption",
+        "useCases.knowledgeAfter3": "Faster onboarding",
+        "useCases.knowledgeAfter4": "Reusable knowledge",
+        "useCases.knowledgeClaim": "Your company already knows more than it uses.",
+        "useCases.knowledgeMetric1Label": "Time saved",
+        "useCases.knowledgeMetric1Value": "32 h / month",
+        "useCases.knowledgeMetric2Label": "Estimated value",
+        "useCases.knowledgeMetric2Value": "€1,440 / month",
+        "useCases.knowledgeMetric3Label": "Based on",
+        "useCases.knowledgeMetric3Value": "12 h → 4 h / week",
+
+        "method.kicker": "Our method",
+        "method.title": "Reality first. AI second.",
+        "method.step1Number": "01 — Map",
+        "method.step1Title": "Understand the real workflow",
+        "method.step1Text": "We look at who does what, where time is lost, which tools are used, and what cannot break.",
+        "method.step2Number": "02 — Find leverage",
+        "method.step2Title": "Find where AI creates output",
+        "method.step2Text": "We identify the points where AI can reduce manual work, speed up decisions, improve quality or remove interruptions.",
+        "method.step3Number": "03 — Build",
+        "method.step3Title": "Create practical systems",
+        "method.step3Text": "We build assistants, automations, document workflows, reporting tools or decision-support processes.",
+        "method.step4Number": "04 — Implement",
+        "method.step4Title": "Deploy with the team",
+        "method.step4Text": "We adjust the system to reality, help the team adopt it and measure the output gained.",
+
+        "capabilities.kicker": "What we build",
+        "capabilities.title": "AI systems for the work that slows teams down.",
+        "capabilities.c1Title": "Workflow automation",
+        "capabilities.c1Text": "Reduce repetitive manual tasks across admin, operations, sales or finance.",
+        "capabilities.c2Title": "AI reporting",
+        "capabilities.c2Text": "Turn scattered data into faster reports, summaries and decision-ready insights.",
+        "capabilities.c3Title": "Knowledge assistants",
+        "capabilities.c3Text": "Help teams find answers across documents, policies, procedures and internal knowledge.",
+        "capabilities.c4Title": "Document workflows",
+        "capabilities.c4Text": "Draft, review, classify or extract information from documents with less manual effort.",
+        "capabilities.c5Title": "Sales operations",
+        "capabilities.c5Text": "Support proposal creation, follow-ups, account research and CRM updates.",
+        "capabilities.c6Title": "Process redesign",
+        "capabilities.c6Text": "Redesign work around AI instead of simply adding tools on top of old processes.",
+
+        "why.kicker": "Why HyperOutput",
+        "why.title": "Most companies do not need more AI noise. They need more output.",
+        "why.card1Title": "Built around your company",
+        "why.card1Text": "We do not start from templates. We start from your real workflows.",
+        "why.card2Title": "Focused on implementation",
+        "why.card2Text": "A good idea is not enough. The system has to work in daily operations.",
+        "why.card3Title": "Measured by output",
+        "why.card3Text": "We care about time saved, work accelerated, quality improved and capacity increased.",
+        "why.quote": "The human engine stays. We just make it produce more.",
+        "why.quoteSub": "AI as leverage, not as theatre.",
+
+        "team.kicker": "Team",
+        "team.title": "Business experience. AI implementation mindset.",
+        "team.intro1": "HyperOutput combines business process experience with practical AI implementation.",
+        "team.intro2": "Companies are not blank pages. They have people, habits, tools, constraints, politics, legacy systems and ways of working that matter. That is why we start with reality.",
+
+        "team.partnerRole": "Business leadership, process optimisation and measurable implementation",
+        "team.partnerText1": "Vicente brings more than 40 years of technical and business experience across IBM, automotive retail, business consulting and industrial technology companies.",
+        "team.partnerText2": "He has led companies and departments through growth and operational transformation: scaling Greene internationally, integrating information systems with industrial control data, professionalising HR processes and validating business models through measurable operational and financial impact.",
+        "team.partnerStat1Value": "40+ years",
+        "team.partnerStat1Label": "technical and business career",
+        "team.partnerStat2Value": "17 years",
+        "team.partnerStat2Label": "general manager in automotive retail",
+        "team.partnerStat3Value": "15+ years",
+        "team.partnerStat3Label": "organisation, HR and ICT leadership at Greene",
+        "team.partnerStat4Value": "IBM + ICT",
+        "team.partnerStat4Label": "technology, systems and real operations",
+
+        "team.founderName": "Amando Estela Pastor",
+        "team.founderRole": "AI, language technology, enterprise deployments and revenue strategy",
+        "team.founderText1": "Amando is Chief Revenue Officer and former Chief Technology Officer of Pangeanic. His career combines deep technical expertise in natural language processing, neural networks and AI with hands-on experience managing strategic partnerships, enterprise accounts and advanced product deployments.",
+        "team.founderText2": "With a background spanning astrophysics computing, data science, software engineering, network security and AI, he bridges the technical and commercial sides of enterprise technology: turning complex AI capabilities into real business value.",
+        "team.founderStat1Value": "NLP + AI",
+        "team.founderStat1Label": "neural networks applied to language",
+        "team.founderStat2Value": "Pangeanic",
+        "team.founderStat2Label": "CRO and former CTO",
+        "team.founderStat3Value": "IBM Research",
+        "team.founderStat3Label": "software architecture background",
+        "team.founderStat4Value": "CCNP",
+        "team.founderStat4Label": "network and systems expertise",
+
+        "cta.kicker": "Start simple",
+        "cta.title": "Bring us one workflow that is slowing your team down.",
+        "cta.text": "We will help you understand where AI can create leverage, what should be built, and how to implement it without disrupting the team.",
+        "cta.button": "Contact HyperOutput",
+        "contact.text": "Want to multiply output without multiplying headcount? Tell us what your team is spending too much time on.",
+        "footer.claim": "AI systems for high-output teams."
+      },
+
+      es: {
+        "nav.method": "Método",
+        "nav.useCases": "Casos de uso",
+        "nav.team": "Equipo",
+        "nav.contact": "Contacto",
+        "nav.cta": "Tráenos una tarea repetitiva",
+
+        "hero.eyebrow": "Implementación de IA para empresas reales",
+        "hero.title": "Multiplica el output. No la plantilla.",
+        "hero.copy": "Ayudamos a empresas a optimizar procesos con IA para que sus equipos produzcan más, mejor y más rápido para sus clientes.",
+        "hero.subcopy": "Sin herramientas genéricas. Sin pilotos eternos. Diseñamos sistemas prácticos alrededor de cómo trabaja realmente tu empresa.",
+        "hero.primaryCta": "Tráenos una tarea repetitiva",
+        "hero.secondaryCta": "Ver casos de uso",
+        "hero.metricOneValue": "Menos",
+        "hero.metricOne": "fricción operativa",
+        "hero.metricTwoValue": "Más",
+        "hero.metricTwo": "output de negocio",
+
+        "placeholders.hero": "Placeholder de imagen<br />Sugerido: workflow abstracto, equipo trabajando o visual premium de marca<br />assets/images/hero-output.jpg",
+        "placeholders.partnerPhoto": "Placeholder foto partner<br />assets/images/vicente-centelles.jpg",
+        "placeholders.founderPhoto": "Placeholder foto founder<br />assets/images/amando-estela-hyperoutput.jpg",
+
+        "position.kicker": "Posicionamiento",
+        "position.lead": "Acceder a la IA es fácil. Implementarla bien es lo difícil.",
+        "position.p1": "El valor no está en usar IA. El valor está en saber dónde aplicarla, cómo encaja en la operativa y cómo convertirla en una herramienta que el equipo use cada día.",
+        "position.p2": "HyperOutput convierte la IA en palanca operativa: sistemas prácticos que eliminan fricción, reducen trabajo manual y aumentan la capacidad del equipo sin aumentar estructura.",
+
+        "what.kicker": "Qué hacemos",
+        "what.title": "Convertimos IA en capacidad operativa.",
+        "what.card1Title": "Entender la realidad",
+        "what.card1Text": "Analizamos cómo trabaja el equipo, dónde se pierde tiempo y qué procesos tienen más potencial de mejora.",
+        "what.card2Title": "Diseñar el sistema",
+        "what.card2Text": "Creamos workflows de IA simples, útiles y adaptados a tus procesos, herramientas y restricciones.",
+        "what.card3Title": "Implementar y medir",
+        "what.card3Text": "Acompañamos la adopción, ajustamos el sistema con el equipo y medimos el output ganado.",
+
+        "useCases.kicker": "Casos de uso",
+        "useCases.title": "Donde el valor se ve en horas, euros y capacidad.",
+        "useCases.reportingTitle": "De reporting manual a inteligencia asistida.",
+        "useCases.reportingText": "Muchos equipos dedican horas cada semana a recopilar datos, limpiar información y preparar informes recurrentes. Construimos workflows de reporting con IA para reducir preparación manual, acelerar análisis y mejorar la calidad de las decisiones.",
+        "useCases.before": "Antes",
+        "useCases.after": "Después",
+        "useCases.reportingBefore1": "Datos dispersos",
+        "useCases.reportingBefore2": "Copiar y pegar manual",
+        "useCases.reportingBefore3": "Informes lentos de preparar",
+        "useCases.reportingBefore4": "Poco tiempo para analizar",
+        "useCases.reportingSystem1": "Conexión de fuentes",
+        "useCases.reportingSystem2": "Estructura de datos",
+        "useCases.reportingSystem3": "Resúmenes automáticos",
+        "useCases.reportingSystem4": "Alertas y anomalías",
+        "useCases.reportingAfter1": "Reporting más rápido",
+        "useCases.reportingAfter2": "Decisiones mejor informadas",
+        "useCases.reportingAfter3": "Más tiempo para trabajo de valor",
+        "useCases.reportingClaim": "Menos tiempo preparando informes. Más tiempo tomando decisiones.",
+        "useCases.impactKicker": "Impacto orientativo",
+        "useCases.impactNote": "Ejemplo orientativo. Validamos los números reales con tus datos.",
+        "useCases.reportingMetric1Label": "Horas ahorradas",
+        "useCases.reportingMetric1Value": "18 h / mes",
+        "useCases.reportingMetric2Label": "Valor estimado",
+        "useCases.reportingMetric2Value": "810 € / mes",
+        "useCases.reportingMetric3Label": "Supuesto",
+        "useCases.reportingMetric3Value": "6 h → 1,5 h / semana",
+
+        "useCases.knowledgeTitle": "De conocimiento disperso a respuestas inmediatas.",
+        "useCases.knowledgeText": "En muchas empresas, la respuesta ya existe. Está en documentos, emails, carpetas, chats o en la cabeza de alguien. Creamos sistemas internos de conocimiento con IA para encontrar respuestas fiables más rápido, con contexto y trazabilidad.",
+        "useCases.knowledgeBefore1": "Documentos dispersos",
+        "useCases.knowledgeBefore2": "Preguntas repetidas",
+        "useCases.knowledgeBefore3": "Interrupciones constantes",
+        "useCases.knowledgeBefore4": "Onboarding lento",
+        "useCases.knowledgeSystem1": "Mapeo del conocimiento",
+        "useCases.knowledgeSystem2": "Fuentes estructuradas",
+        "useCases.knowledgeSystem3": "Asistente interno IA",
+        "useCases.knowledgeSystem4": "Integración en workflows",
+        "useCases.knowledgeAfter1": "Respuestas inmediatas",
+        "useCases.knowledgeAfter2": "Menos interrupciones",
+        "useCases.knowledgeAfter3": "Onboarding más rápido",
+        "useCases.knowledgeAfter4": "Conocimiento reutilizable",
+        "useCases.knowledgeClaim": "Tu empresa ya sabe más de lo que aprovecha.",
+        "useCases.knowledgeMetric1Label": "Horas ahorradas",
+        "useCases.knowledgeMetric1Value": "32 h / mes",
+        "useCases.knowledgeMetric2Label": "Valor estimado",
+        "useCases.knowledgeMetric2Value": "1.440 € / mes",
+        "useCases.knowledgeMetric3Label": "Supuesto",
+        "useCases.knowledgeMetric3Value": "12 h → 4 h / semana",
+
+        "method.kicker": "Nuestro método",
+        "method.title": "Primero la realidad. Después la IA.",
+        "method.step1Number": "01 — Mapear",
+        "method.step1Title": "Entender el proceso real",
+        "method.step1Text": "Analizamos quién hace qué, dónde se pierde tiempo, qué herramientas se usan y qué partes del proceso no pueden fallar.",
+        "method.step2Number": "02 — Detectar palancas",
+        "method.step2Title": "Encontrar dónde la IA genera output",
+        "method.step2Text": "Identificamos los puntos donde la IA puede reducir trabajo manual, acelerar decisiones, mejorar calidad o eliminar interrupciones.",
+        "method.step3Number": "03 — Construir",
+        "method.step3Title": "Crear sistemas prácticos",
+        "method.step3Text": "Construimos asistentes, automatizaciones, workflows documentales, herramientas de reporting o procesos de soporte a la decisión.",
+        "method.step4Number": "04 — Implementar",
+        "method.step4Title": "Desplegar con el equipo",
+        "method.step4Text": "Ajustamos el sistema a la operativa real, acompañamos la adopción y medimos el impacto conseguido.",
+
+        "capabilities.kicker": "Qué construimos",
+        "capabilities.title": "Sistemas de IA para el trabajo que frena a los equipos.",
+        "capabilities.c1Title": "Automatización de workflows",
+        "capabilities.c1Text": "Reducimos tareas manuales repetitivas en administración, operaciones, ventas o finanzas.",
+        "capabilities.c2Title": "Reporting con IA",
+        "capabilities.c2Text": "Convertimos datos dispersos en informes más rápidos, resúmenes claros e insights listos para decidir.",
+        "capabilities.c3Title": "Asistentes de conocimiento",
+        "capabilities.c3Text": "Ayudamos a los equipos a encontrar respuestas en documentos, políticas, procedimientos y conocimiento interno.",
+        "capabilities.c4Title": "Workflows documentales",
+        "capabilities.c4Text": "Redactamos, revisamos, clasificamos o extraemos información de documentos con menos esfuerzo manual.",
+        "capabilities.c5Title": "Operaciones comerciales",
+        "capabilities.c5Text": "Apoyamos propuestas, seguimientos, investigación de cuentas y actualización de CRM.",
+        "capabilities.c6Title": "Rediseño de procesos",
+        "capabilities.c6Text": "Rediseñamos el trabajo alrededor de la IA, en lugar de añadir herramientas encima de procesos antiguos.",
+
+        "why.kicker": "Por qué HyperOutput",
+        "why.title": "La mayoría de empresas no necesita más ruido sobre IA. Necesita más output.",
+        "why.card1Title": "Diseñado para tu empresa",
+        "why.card1Text": "No partimos de plantillas. Partimos de tus procesos reales.",
+        "why.card2Title": "Foco en implementación",
+        "why.card2Text": "Una buena idea no basta. El sistema tiene que funcionar en la operación diaria.",
+        "why.card3Title": "Medido por output",
+        "why.card3Text": "Medimos tiempo ahorrado, trabajo acelerado, calidad mejorada y capacidad aumentada.",
+        "why.quote": "El motor humano se queda. Nosotros hacemos que produzca más.",
+        "why.quoteSub": "IA como palanca operativa, no como teatro.",
+
+        "team.kicker": "Equipo",
+        "team.title": "Experiencia de negocio. Mentalidad de implementación IA.",
+        "team.intro1": "HyperOutput combina experiencia en procesos de negocio con implementación práctica de IA.",
+        "team.intro2": "Las empresas no son páginas en blanco. Tienen personas, hábitos, herramientas, restricciones, política interna, sistemas heredados y formas de trabajar que importan. Por eso empezamos por la realidad.",
+
+        "team.partnerRole": "Dirección de empresa, optimización de procesos e implementación medible",
+        "team.partnerText1": "Vicente aporta más de 40 años de trayectoria técnica y empresarial en IBM, automoción, consultoría de gestión y empresas de tecnología industrial.",
+        "team.partnerText2": "Ha liderado empresas y departamentos en fases de crecimiento y transformación operativa: escalado internacional en Greene, integración de sistemas de información con datos industriales, profesionalización de procesos de RRHH y análisis de modelos de negocio y viabilidad financiera. Su valor en HyperOutput es precisamente ese: entender el proceso antes de optimizarlo y medir si la solución funciona en la operación real.",
+        "team.partnerStat1Value": "40+ años",
+        "team.partnerStat1Label": "trayectoria técnica y empresarial",
+        "team.partnerStat2Value": "17 años",
+        "team.partnerStat2Label": "director general en grupo de automoción",
+        "team.partnerStat3Value": "15+ años",
+        "team.partnerStat3Label": "organización, RRHH y TIC en Greene",
+        "team.partnerStat4Value": "IBM + TIC",
+        "team.partnerStat4Label": "tecnología, sistemas y operación real",
+
+        "team.founderName": "Amando Estela Pastor",
+        "team.founderRole": "IA, tecnología del lenguaje, despliegues enterprise y estrategia comercial",
+        "team.founderText1": "Amando es Chief Revenue Officer y antiguo Chief Technology Officer de Pangeanic. Su trayectoria combina experiencia técnica profunda en procesamiento del lenguaje natural, redes neuronales e IA con experiencia directa en alianzas estratégicas, grandes cuentas y despliegues avanzados de producto.",
+        "team.founderText2": "Con una carrera que empezó en computación aplicada a la astrofísica y evolucionó hacia data science, ingeniería de software, seguridad de redes e IA, conecta el mundo técnico y el comercial para convertir capacidades complejas de IA en valor real para la empresa.",
+        "team.founderStat1Value": "NLP + IA",
+        "team.founderStat1Label": "redes neuronales aplicadas al lenguaje",
+        "team.founderStat2Value": "Pangeanic",
+        "team.founderStat2Label": "CRO y antiguo CTO",
+        "team.founderStat3Value": "IBM Research",
+        "team.founderStat3Label": "arquitectura de software",
+        "team.founderStat4Value": "CCNP",
+        "team.founderStat4Label": "experiencia en redes y sistemas",
+
+        "cta.kicker": "Empieza simple",
+        "cta.title": "Tráenos una tarea repetitiva que esté frenando a tu equipo.",
+        "cta.text": "Te ayudaremos a entender dónde puede crear palanca la IA, qué conviene construir y cómo implementarlo sin romper la operativa del equipo.",
+        "cta.button": "Contactar con HyperOutput",
+        "contact.text": "¿Quieres multiplicar output sin multiplicar plantilla? Cuéntanos en qué está invirtiendo demasiado tiempo tu equipo.",
+        "footer.claim": "Sistemas de IA para equipos de alto output."
+      }
+    };
+
+    const languageToggle = document.getElementById("languageToggle");
+    const mobileMenuButton = document.getElementById("mobileMenuButton");
+    const navLinks = document.getElementById("navLinks");
+    const year = document.getElementById("year");
+
+    if (year) {
+      year.textContent = new Date().getFullYear();
+    }
+
+    let currentLanguage = "es";
+
+    function setLanguage(language) {
+      currentLanguage = language;
+      document.documentElement.lang = language;
+
+      if (languageToggle) {
+        languageToggle.textContent = language === "es" ? "EN" : "ES";
+        languageToggle.setAttribute(
+          "aria-label",
+          language === "es" ? "Switch to English" : "Cambiar a español"
+        );
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        const value = translations[language] && translations[language][key];
+        if (value) element.innerHTML = value;
+      });
+    }
+
+    if (languageToggle) {
+      languageToggle.addEventListener("click", () => {
+        setLanguage(currentLanguage === "es" ? "en" : "es");
+      });
+    }
+
+    if (mobileMenuButton && navLinks) {
+      mobileMenuButton.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+      });
+
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => navLinks.classList.remove("open"));
+      });
+    }
+
+    setLanguage("es");
+  </script>
+</body>
+</html>
