@@ -1021,6 +1021,8 @@
       <nav class="nav-links" id="navLinks" aria-label="Main navigation">
         <a href="#method" data-i18n="nav.method">Method</a>
         <a href="#use-cases" data-i18n="nav.useCases">Use Cases</a>
+        <a href="#products" data-i18n="nav.products">Products</a>
+        <a href="#ai-diagnosis" data-i18n="nav.aiDiagnosis">AI Diagnosis</a>
         <a href="#team" data-i18n="nav.team">Team</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
@@ -1112,6 +1114,7 @@
       <div class="container">
         <p class="section-kicker" data-i18n="useCases.kicker">Use cases</p>
         <h2 data-i18n="useCases.title">Where the value becomes visible.</h2>
+        <p class="impact-note" data-i18n="useCases.impactNote" style="margin-top: 10px; max-width: 640px;">Example only. We validate the real numbers with your data.</p>
         <div class="usecase-grid">
           <article class="usecase">
             <div class="usecase-intro">
@@ -1135,7 +1138,6 @@
                     <strong data-i18n="useCases.reportingMetric3Value">6 h → 1.5 h / week</strong>
                   </div>
                 </div>
-                <p class="impact-note" data-i18n="useCases.impactNote">Example only. We validate the real numbers with your data.</p>
               </div>
             </div>
             <div class="flow-visual" aria-label="Reporting visual flow">
@@ -1191,7 +1193,6 @@
                     <strong data-i18n="useCases.knowledgeMetric3Value">12 h → 4 h / week</strong>
                   </div>
                 </div>
-                <p class="impact-note" data-i18n="useCases.impactNote">Example only. We validate the real numbers with your data.</p>
               </div>
             </div>
             <div class="flow-visual" aria-label="Knowledge visual flow">
@@ -1224,6 +1225,61 @@
               </div>
             </div>
             <p class="usecase-claim" data-i18n="useCases.knowledgeClaim">Your company already knows more than it uses.</p>
+          </article>
+
+          <article class="usecase">
+            <div class="usecase-intro">
+              <div>
+                <h3 data-i18n="useCases.legalTitle">From scattered case files to a controlled AI operations layer.</h3>
+                <p data-i18n="useCases.legalText">Law firms and other professional practices lose hours a week to email triage, deadline tracking and drafting routine responses. We build an AI layer that reads and files every message, drafts replies for approval, and tracks every deadline so nothing falls through the cracks.</p>
+              </div>
+              <div>
+                <div class="impact-kicker" data-i18n="useCases.impactKicker">Indicative impact</div>
+                <div class="impact-grid">
+                  <div class="impact-card">
+                    <span data-i18n="useCases.legalMetric1Label">Recoverable time</span>
+                    <strong data-i18n="useCases.legalMetric1Value">Up to 32 h / month</strong>
+                  </div>
+                  <div class="impact-card">
+                    <span data-i18n="useCases.legalMetric2Label">Response cycle</span>
+                    <strong data-i18n="useCases.legalMetric2Value">48 h → 2 h</strong>
+                  </div>
+                  <div class="impact-card">
+                    <span data-i18n="useCases.legalMetric3Label">Availability</span>
+                    <strong data-i18n="useCases.legalMetric3Value">8/5 → 24/7</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flow-visual" aria-label="Legal visual flow">
+              <div class="flow-step">
+                <small data-i18n="useCases.before">Before</small>
+                <ul>
+                  <li data-i18n="useCases.legalBefore1">Inbox and WhatsApp triage by hand</li>
+                  <li data-i18n="useCases.legalBefore2">Deadlines tracked in spreadsheets</li>
+                  <li data-i18n="useCases.legalBefore3">Replies drafted from scratch</li>
+                  <li data-i18n="useCases.legalBefore4">Documents filed manually per case</li>
+                </ul>
+              </div>
+              <div class="flow-step highlight">
+                <small>HyperOutput</small>
+                <ul>
+                  <li data-i18n="useCases.legalSystem1">Capture and classify every message</li>
+                  <li data-i18n="useCases.legalSystem2">File attachments into the case folder</li>
+                  <li data-i18n="useCases.legalSystem3">Draft replies for approval</li>
+                  <li data-i18n="useCases.legalSystem4">Track deadlines and flag risk</li>
+                </ul>
+              </div>
+              <div class="flow-step">
+                <small data-i18n="useCases.after">After</small>
+                <ul>
+                  <li data-i18n="useCases.legalAfter1">Faster response times</li>
+                  <li data-i18n="useCases.legalAfter2">No missed deadlines</li>
+                  <li data-i18n="useCases.legalAfter3">More time for casework</li>
+                </ul>
+              </div>
+            </div>
+            <p class="usecase-claim"><a href="#products" data-i18n="useCases.legalLink">See the SOS product for professional firms →</a></p>
           </article>
         </div>
       </div>
@@ -1320,6 +1376,74 @@
         <div class="quote-panel">
           <p data-i18n="why.quote">The human engine stays. We just make it produce more.</p>
           <span data-i18n="why.quoteSub">AI as leverage, not as theatre.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="products">
+      <div class="container">
+        <p class="section-kicker" data-i18n="products.kicker">Products</p>
+        <h2 data-i18n="products.title">SOS — Secretarial Operative System</h2>
+        <p class="body-large" data-i18n="products.lead">A turnkey AI layer for the daily secretarial and admin work of professional firms: law firms, accounting practices, architecture studios.</p>
+        <p class="body-large" data-i18n="products.body">SOS reads and classifies incoming email and WhatsApp, files attachments into the right case folder, drafts contextual replies and tracks deadlines, tasks and appointments. It sits on top of the tools your firm already uses, and keeps a human in the loop on anything sensitive.</p>
+
+        <div class="three-cards">
+          <article class="card">
+            <div class="card-number">01</div>
+            <h3 data-i18n="products.card1Title">Intake</h3>
+            <p data-i18n="products.card1Text">Captures and classifies every email and WhatsApp message by urgency and case file, files attachments automatically, and flags anything it cannot classify for manual review.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">02</div>
+            <h3 data-i18n="products.card2Title">Documentation</h3>
+            <p data-i18n="products.card2Text">Extracts key data with OCR, checks documents for missing signatures or inconsistencies, and keeps the case library versioned and GDPR-compliant.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">03</div>
+            <h3 data-i18n="products.card3Title">Operation & oversight</h3>
+            <p data-i18n="products.card3Text">Proposes reply drafts, deadlines and meeting prep for human approval, and reports weekly on workload, risk and bottlenecks. Nothing is sent or executed without sign-off.</p>
+          </article>
+        </div>
+
+        <div class="impact-grid" style="max-width: 640px; margin-top: 32px;">
+          <div class="impact-card">
+            <span data-i18n="products.metric1Label">Recoverable time</span>
+            <strong data-i18n="products.metric1Value">Up to 32 h / month</strong>
+          </div>
+          <div class="impact-card">
+            <span data-i18n="products.metric2Label">Response cycle</span>
+            <strong data-i18n="products.metric2Value">48 h → 2 h</strong>
+          </div>
+          <div class="impact-card">
+            <span data-i18n="products.metric3Label">Availability</span>
+            <strong data-i18n="products.metric3Value">8/5 → 24/7</strong>
+          </div>
+        </div>
+        <p class="impact-note" data-i18n="products.impactNote" style="max-width: 640px;">Indicative figures from SOS product materials. SOS is currently in its definition phase; we validate real numbers as each deployment goes live.</p>
+
+        <div class="quote-panel" style="margin-top: 32px;">
+          <p data-i18n="products.quote">HyperOutput designs the automation strategy. SOS is the concrete system we deploy in your daily operations.</p>
+        </div>
+
+        <div class="hero-actions" style="margin-top: 28px;">
+          <a class="button button-primary" href="#contact" data-i18n="products.cta">Ask about SOS for your firm</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-diagnosis">
+      <div class="container split">
+        <div>
+          <p class="section-kicker" data-i18n="aiDiagnosis.kicker">AI Diagnosis</p>
+          <p class="lead" data-i18n="aiDiagnosis.title">Before implementing, we measure the starting point.</p>
+        </div>
+        <div>
+          <p class="body-large" data-i18n="aiDiagnosis.body1">A short, anonymous exercise, not a self-report survey. We ask your team to improve a real AI draft and spot an AI mistake, sector by sector, to see how they actually prompt and how well they catch errors today.</p>
+          <p class="body-large" data-i18n="aiDiagnosis.body2">Results are grouped by team and role, never by individual, and feed directly into where we propose building leverage first.</p>
+          <p class="body-large" data-i18n="aiDiagnosis.badges">Anonymous · about 7 minutes · no score, no exam</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact" data-i18n="aiDiagnosis.cta">Request a diagnosis for your team</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1429,6 +1553,8 @@
       <div class="footer-links">
         <a href="#method" data-i18n="nav.method">Method</a>
         <a href="#use-cases" data-i18n="nav.useCases">Use Cases</a>
+        <a href="#products" data-i18n="nav.products">Products</a>
+        <a href="#ai-diagnosis" data-i18n="nav.aiDiagnosis">AI Diagnosis</a>
         <a href="#team" data-i18n="nav.team">Team</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
       </div>
@@ -1441,6 +1567,8 @@
         "nav.method": "Method",
         "nav.useCases": "Use Cases",
         "nav.team": "Team",
+        "nav.products": "Products",
+        "nav.aiDiagnosis": "AI Diagnosis",
         "nav.contact": "Contact",
         "nav.cta": "Start with one workflow",
 
@@ -1521,6 +1649,54 @@
         "useCases.knowledgeMetric2Value": "€1,440 / month",
         "useCases.knowledgeMetric3Label": "Based on",
         "useCases.knowledgeMetric3Value": "12 h → 4 h / week",
+
+        "useCases.legalTitle": "From scattered case files to a controlled AI operations layer.",
+        "useCases.legalText": "Law firms and other professional practices lose hours a week to email triage, deadline tracking and drafting routine responses. We build an AI layer that reads and files every message, drafts replies for approval, and tracks every deadline so nothing falls through the cracks.",
+        "useCases.legalMetric1Label": "Recoverable time",
+        "useCases.legalMetric1Value": "Up to 32 h / month",
+        "useCases.legalMetric2Label": "Response cycle",
+        "useCases.legalMetric2Value": "48 h → 2 h",
+        "useCases.legalMetric3Label": "Availability",
+        "useCases.legalMetric3Value": "8/5 → 24/7",
+        "useCases.legalBefore1": "Inbox and WhatsApp triage by hand",
+        "useCases.legalBefore2": "Deadlines tracked in spreadsheets",
+        "useCases.legalBefore3": "Replies drafted from scratch",
+        "useCases.legalBefore4": "Documents filed manually per case",
+        "useCases.legalSystem1": "Capture and classify every message",
+        "useCases.legalSystem2": "File attachments into the case folder",
+        "useCases.legalSystem3": "Draft replies for approval",
+        "useCases.legalSystem4": "Track deadlines and flag risk",
+        "useCases.legalAfter1": "Faster response times",
+        "useCases.legalAfter2": "No missed deadlines",
+        "useCases.legalAfter3": "More time for casework",
+        "useCases.legalLink": "See the SOS product for professional firms →",
+
+        "products.kicker": "Products",
+        "products.title": "SOS — Secretarial Operative System",
+        "products.lead": "A turnkey AI layer for the daily secretarial and admin work of professional firms: law firms, accounting practices, architecture studios.",
+        "products.body": "SOS reads and classifies incoming email and WhatsApp, files attachments into the right case folder, drafts contextual replies and tracks deadlines, tasks and appointments. It sits on top of the tools your firm already uses, and keeps a human in the loop on anything sensitive.",
+        "products.card1Title": "Intake",
+        "products.card1Text": "Captures and classifies every email and WhatsApp message by urgency and case file, files attachments automatically, and flags anything it cannot classify for manual review.",
+        "products.card2Title": "Documentation",
+        "products.card2Text": "Extracts key data with OCR, checks documents for missing signatures or inconsistencies, and keeps the case library versioned and GDPR-compliant.",
+        "products.card3Title": "Operation & oversight",
+        "products.card3Text": "Proposes reply drafts, deadlines and meeting prep for human approval, and reports weekly on workload, risk and bottlenecks. Nothing is sent or executed without sign-off.",
+        "products.metric1Label": "Recoverable time",
+        "products.metric1Value": "Up to 32 h / month",
+        "products.metric2Label": "Response cycle",
+        "products.metric2Value": "48 h → 2 h",
+        "products.metric3Label": "Availability",
+        "products.metric3Value": "8/5 → 24/7",
+        "products.impactNote": "Indicative figures from SOS product materials. SOS is currently in its definition phase; we validate real numbers as each deployment goes live.",
+        "products.quote": "HyperOutput designs the automation strategy. SOS is the concrete system we deploy in your daily operations.",
+        "products.cta": "Ask about SOS for your firm",
+
+        "aiDiagnosis.kicker": "AI Diagnosis",
+        "aiDiagnosis.title": "Before implementing, we measure the starting point.",
+        "aiDiagnosis.body1": "A short, anonymous exercise, not a self-report survey. We ask your team to improve a real AI draft and spot an AI mistake, sector by sector, to see how they actually prompt and how well they catch errors today.",
+        "aiDiagnosis.body2": "Results are grouped by team and role, never by individual, and feed directly into where we propose building leverage first.",
+        "aiDiagnosis.badges": "Anonymous · about 7 minutes · no score, no exam",
+        "aiDiagnosis.cta": "Request a diagnosis for your team",
 
         "method.kicker": "Our method",
         "method.title": "Reality first. AI second.",
@@ -1605,6 +1781,8 @@
         "nav.method": "Método",
         "nav.useCases": "Casos de uso",
         "nav.team": "Equipo",
+        "nav.products": "Productos",
+        "nav.aiDiagnosis": "Diagnóstico IA",
         "nav.contact": "Contacto",
         "nav.cta": "Tráenos una tarea repetitiva",
 
@@ -1685,6 +1863,54 @@
         "useCases.knowledgeMetric2Value": "1.440 € / mes",
         "useCases.knowledgeMetric3Label": "Supuesto",
         "useCases.knowledgeMetric3Value": "12 h → 4 h / semana",
+
+        "useCases.legalTitle": "De expedientes dispersos a una capa de IA controlada.",
+        "useCases.legalText": "Los despachos profesionales pierden horas cada semana clasificando correo, siguiendo plazos y redactando respuestas repetitivas. Construimos una capa de IA que lee y archiva cada mensaje, redacta respuestas para tu aprobación y controla cada plazo para que nada se escape.",
+        "useCases.legalMetric1Label": "Tiempo recuperable",
+        "useCases.legalMetric1Value": "Hasta 32 h / mes",
+        "useCases.legalMetric2Label": "Ciclo de respuesta",
+        "useCases.legalMetric2Value": "48 h → 2 h",
+        "useCases.legalMetric3Label": "Disponibilidad",
+        "useCases.legalMetric3Value": "8/5 → 24/7",
+        "useCases.legalBefore1": "Bandeja y WhatsApp a mano",
+        "useCases.legalBefore2": "Plazos en hojas de cálculo",
+        "useCases.legalBefore3": "Respuestas redactadas desde cero",
+        "useCases.legalBefore4": "Archivo manual por expediente",
+        "useCases.legalSystem1": "Captura y clasifica cada mensaje",
+        "useCases.legalSystem2": "Archiva adjuntos en el expediente",
+        "useCases.legalSystem3": "Redacta respuestas para aprobar",
+        "useCases.legalSystem4": "Controla plazos y avisa del riesgo",
+        "useCases.legalAfter1": "Respuestas más rápidas",
+        "useCases.legalAfter2": "Cero plazos perdidos",
+        "useCases.legalAfter3": "Más tiempo para el caso",
+        "useCases.legalLink": "Ver el producto SOS para despachos →",
+
+        "products.kicker": "Productos",
+        "products.title": "SOS — Secretarial Operative System",
+        "products.lead": "Una capa de IA llave en mano para la secretaría y administración diaria de despachos profesionales: bufetes, asesorías, estudios de arquitectura.",
+        "products.body": "SOS lee y clasifica el correo y WhatsApp entrantes, archiva los adjuntos en el expediente correspondiente, redacta borradores de respuesta contextualizados y controla plazos, tareas y citas. Se añade sobre las herramientas que ya usa el despacho, y mantiene siempre la validación humana en lo delicado.",
+        "products.card1Title": "Entrada",
+        "products.card1Text": "Captura y clasifica cada correo y WhatsApp por urgencia y expediente, archiva los adjuntos automáticamente y marca para revisión manual lo que no puede clasificar.",
+        "products.card2Title": "Documentación",
+        "products.card2Text": "Extrae datos clave con OCR, revisa los documentos en busca de firmas o incoherencias y mantiene la biblioteca del expediente versionada y conforme al RGPD.",
+        "products.card3Title": "Operación y supervisión",
+        "products.card3Text": "Propone borradores de respuesta, plazos y preparación de reuniones para tu aprobación, e informa cada semana de carga, riesgos y cuellos de botella. Nada se envía ni se ejecuta sin el visto bueno.",
+        "products.metric1Label": "Tiempo recuperable",
+        "products.metric1Value": "Hasta 32 h / mes",
+        "products.metric2Label": "Ciclo de respuesta",
+        "products.metric2Value": "48 h → 2 h",
+        "products.metric3Label": "Disponibilidad",
+        "products.metric3Value": "8/5 → 24/7",
+        "products.impactNote": "Cifras orientativas del material comercial de SOS. SOS está actualmente en fase de definición; validamos los números reales con cada despliegue.",
+        "products.quote": "HyperOutput es la firma que diseña la estrategia de automatización, y SOS es la solución concreta que implantamos en el día a día.",
+        "products.cta": "Pregúntanos por SOS para tu despacho",
+
+        "aiDiagnosis.kicker": "Diagnóstico IA",
+        "aiDiagnosis.title": "Antes de implementar, medimos el punto de partida.",
+        "aiDiagnosis.body1": "Un ejercicio corto y anónimo, no una encuesta de autopercepción. Le pedimos al equipo que mejore un borrador real de IA y que detecte un error de la IA, adaptado a su sector, para ver cómo trabaja hoy con estas herramientas.",
+        "aiDiagnosis.body2": "Los resultados se agrupan por equipo y área, nunca por persona, y son la base de por dónde proponemos empezar a construir la palanca de IA.",
+        "aiDiagnosis.badges": "Anónimo · unos 7 minutos · sin nota ni examen",
+        "aiDiagnosis.cta": "Solicita un diagnóstico para tu equipo",
 
         "method.kicker": "Nuestro método",
         "method.title": "Primero la realidad. Después la IA.",
